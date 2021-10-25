@@ -25,8 +25,7 @@ describe Bank do
     it "transaction timestamp recorded" do
         account.deposit(7.3)
         expect(account.transactions[timestamp]).to eq :time_now      
-    end
-            
+    end            
     
     it 'creates a new bank account' do
         expect(subject.balance).to eq 0
