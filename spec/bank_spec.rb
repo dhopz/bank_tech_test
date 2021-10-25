@@ -14,5 +14,14 @@ describe Bank do
         end
     end
 
+    describe "#withdrawal" do
+        it "funds are withdrawn" do
+            bank = Bank.new
+            bank.add_funds(10)
+            bank.withdraw(7)
+            expect(bank.balance).to eq 3
+        end
+    end
+
     
 end
