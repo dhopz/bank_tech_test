@@ -9,7 +9,7 @@ describe Bank do
     describe "#deposit" do
         it "funds can be deposited" do
             bank = Bank.new
-            bank.add_funds(10)
+            bank.deposit(10)
             expect(bank.balance).to eq 10
         end
     end

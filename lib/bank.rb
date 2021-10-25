@@ -5,8 +5,12 @@ class Bank
         @balance = 0  
     end
 
-    def add_funds(deposit)
-        @balance += deposit
+    def deposit(money)
+        @balance += money
+    end
+
+    def withdraw(money)
+        @balance -= money
     end
 
 end
