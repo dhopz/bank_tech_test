@@ -2,7 +2,8 @@ class Bank
     attr_reader :balance
     
     def initialize()
-        @balance = 0  
+        @balance = 0
+        @transactions = Hash.new
     end
 
     def deposit(money)
