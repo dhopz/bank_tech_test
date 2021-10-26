@@ -13,6 +13,7 @@ class Bank
 
     def withdraw(money)
         @balance -= money
+        @transactions.push({timestamp:Time.now.strftime("%d/%m/%Y %H-%M-%S"), type:"Withdraw", amount: money})
     end
 
 end
