@@ -32,7 +32,7 @@ describe Bank do
 
         it ".checks for a timestamp" do
             account.deposit(10)            
-            expect(account.transactions.last).to eq(:timestamp=>"10/10/2021 00-00-00", :amount=> 10, :type=> "Deposit")
+            expect(account.transactions.last).to eq(:timestamp=>"10/10/2021 00-00-00", :amount=> 10, :type=> "Deposit", :balance=>10)
         end
 
         it ".checks balance" do
@@ -53,7 +53,7 @@ describe Bank do
         it ".checks for a timestamp" do
             account.deposit(10)  
             account.withdraw(7)          
-            expect(account.transactions.last).to eq(:timestamp=>"10/10/2021 00-00-00", :amount=> 7, :type=> "Withdraw")
+            expect(account.transactions.last).to eq(:timestamp=>"10/10/2021 00-00-00", :amount=> 7, :type=> "Withdraw", :balance=>3)
         end
 
         it ".checks balance" do
@@ -63,14 +63,17 @@ describe Bank do
         end
     end
 
-    describe "#statement" do 
-        it ".prints a statement" do
-            account.deposit(10)  
-            account.withdraw(7)
-            expect(account.statement).to output(
-                "26/10/2021 10-25-42 || Deposit || 10
-                26/10/2021 10-25-42 || Withdrawal || 7").to_stdout
-        end
+    #actually - this should be a new class
+    # describe "#statement" do 
+    #     it ".prints transactions" do
+    #         account.deposit(10)  
+    #         #p account.statement2           
+    #         #expect(account.statement2).to output("10/10/2021 00-00-00 || Deposit || 10").to_stdout
+    #         expect(account.statement2).to output("date || credit || debit || balance\n10/10/2021 00-00-00 || 10.00 || || 10.00").to_stdout
 
+    #         #expect { print 'foo' }.to output('foo').to_stdout         
+    #     end
+    # end
     
 end
+
