@@ -1,25 +1,23 @@
 class Statement
 
-  def headers
-    'date || credit || debit || balance'
-  end
-
-  def print_statement(account)
-    transaction_history = bank.transactions
-    transactions = format_transactions(transactions)
-    return "#{headers}" + "#{transactions}"
-  end
-
-  def format_transactions(transaction_history)
-    transactions = ''
-    transaction_history.reverse_each do |transaction|
-      if transaction.type == 'deposit'
-        transactions += "\n#{transaction.date} || #{transaction.amount} || || #{transaction.account_balance}"
-      else transaction.type == 'credit'
-        transactions += "\n#{transaction.date} || || #{transaction.amount} || #{transaction.account_balance}"
-      end
+    def headers
+        'date || credit || debit || balance'
     end
-    return transactions
-  end
 
+    def print_statement(bank)
+        transactions = format_transactions(bank.transactions)
+        return "#{headers}" + "#{transactions}"
+    end
+
+    def format_transactions(transaction_history)
+        transactions = ''
+        transaction_history.reverse_each do |transaction|   
+            if transaction[:type] == 'Deposit'
+                transactions += "\n#{transaction[:timestamp]} || #{transaction[:amount]} || || #{transaction[:balance]}"
+            else transaction[:type] == 'Withdraw'
+                transactions += "\n#{transaction[:timestamp]} || || #{transaction[:amount]} || #{transaction[:balance]}"
+            end
+        end   
+        return transactions     
+    end
 end
