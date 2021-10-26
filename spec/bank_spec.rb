@@ -17,27 +17,27 @@ describe Bank do
     end
 
     it "transactions stored" do
-        account.deposit(6.3)
+        account.transaction("Deposit",6.3)
         expect(account.transactions).to include(have_key(:timestamp))
         expect(account.transactions).to include(have_key(:type))
         expect(account.transactions).to include(have_key(:amount))  
-        expect(account.transactions).to include(include(:amount=>6.3))        
+        expect(account.transactions).to include(include(:amount=>'%.2f' % 6.3))        
     end
             
     describe "#deposit" do
         it ".funds can be deposited" do
-            account.deposit(10)
+            account.transaction("Deposit",10)
             expect(account.balance).to eq 10
         end
 
         it ".checks for a timestamp" do
-            account.deposit(10)            
-            expect(account.transactions.last).to eq(:timestamp=>"10/10/2021 00-00-00", :amount=> 10, :type=> "Deposit", :balance=>10)
+            account.transaction("Deposit",10)           
+            expect(account.transactions.last).to eq(:timestamp=>"10/10/2021 00-00-00", :amount=> '%.2f' %  10, :type=> "Deposit", :balance=>'%.2f' %  10)
         end
 
         it ".checks balance" do
-            account.deposit(10)  
-            account.deposit(7)           
+            account.transaction("Deposit",10)
+            account.transaction("Deposit",7)          
             expect(account.balance).to eq(17)
         end
 
@@ -45,22 +45,11 @@ describe Bank do
 
     describe "#withdrawal" do
         it ".funds are withdrawn" do            
-            account.deposit(10)
-            account.withdraw(7)
+            account.transaction("Deposit",10)
+            account.transaction("Withdraw",7)
             expect(account.balance).to eq 3
-        end
+        end        
 
-        it ".checks for a timestamp" do
-            account.deposit(10)  
-            account.withdraw(7)          
-            expect(account.transactions.last).to eq(:timestamp=>"10/10/2021 00-00-00", :amount=> 7, :type=> "Withdraw", :balance=>3)
-        end
-
-        it ".checks balance" do
-            account.deposit(10)  
-            account.withdraw(7)           
-            expect(account.balance).to eq(3)
-        end
     end
 
     #actually - this should be a new class
