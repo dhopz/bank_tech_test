@@ -17,11 +17,8 @@ describe Bank do
     end
 
     it "transactions stored" do
-        account.transaction("Deposit",6.3)
-        expect(account.transactions).to include(have_key(:timestamp))
-        expect(account.transactions).to include(have_key(:type))
-        expect(account.transactions).to include(have_key(:amount))  
-        expect(account.transactions).to include(include(:amount=>'%.2f' % 6.3))        
+        deposit = account.transaction("Deposit",6.3)
+        expect(account.transactions[0]).to have_attributes(:amount => "6.30", :type => "Deposit")      
     end
             
     describe "#deposit" do
@@ -30,9 +27,9 @@ describe Bank do
             expect(account.balance).to eq 10
         end
 
-        it ".checks for a timestamp" do
-            account.transaction("Deposit",10)           
-            expect(account.transactions.last).to eq(:timestamp=>"10/10/2021 00-00-00", :amount=> '%.2f' %  10, :type=> "Deposit", :balance=>'%.2f' %  10)
+        it ".checks for a date" do
+            account.transaction("Deposit",10)       
+            expect(account.transactions.last).to have_attributes(:date => "10/10/2021")
         end
 
         it ".checks balance" do

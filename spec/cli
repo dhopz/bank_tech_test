@@ -1,0 +1,8 @@
+require './bank'
+require './statement'
+statement = Statement.new
+bank = Bank.new
+bank.transaction("Deposit",10)
+bank.transaction("Deposit",10)
+bank.transaction("Withdraw",7)
+statement.print_statement(bank)
