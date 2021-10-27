@@ -1,23 +1,25 @@
+# frozen_string_literal: true
+
+# Statement to print the statement in format
 class Statement
+  def headers
+    'date || credit || debit || balance'
+  end
 
-    def headers
-        'date || credit || debit || balance'
-    end
+  def print_statement(bank)
+    transactions = format_transactions(bank.transactions)
+    headers.to_s + transactions.to_s
+  end
 
-    def print_statement(bank)
-        transactions = format_transactions(bank.transactions)
-        return "#{headers}" + "#{transactions}"
+  def format_transactions(transaction_history)
+    transactions = ''
+    transaction_history.reverse_each do |transaction|
+      transactions += if transaction.type == 'Deposit'
+                        "\n#{transaction.date} || #{transaction.amount} || || #{transaction.balance}"
+                      else
+                        "\n#{transaction.date} || || #{transaction.amount} || #{transaction.balance}"
+                      end
     end
-
-    def format_transactions(transaction_history)
-        transactions = ''
-        transaction_history.reverse_each do |transaction|           
-            if transaction.type == 'Deposit'
-                transactions += "\n#{transaction.date} || #{transaction.amount} || || #{transaction.balance}"
-            else transaction.type == 'Withdraw'
-                transactions += "\n#{transaction.date} || || #{transaction.amount} || #{transaction.balance}"
-            end
-        end   
-        return transactions     
-    end
+    transactions
+  end
 end
