@@ -1,3 +1,5 @@
+require_relative 'transaction'
+
 class Bank
     attr_reader :balance, :transactions
       
@@ -8,7 +10,8 @@ class Bank
 
     def transaction(type, amount)
         balance = balance_check(type,amount)
-        @transactions.push({timestamp:Time.now.strftime("%d/%m/%Y %H-%M-%S"), type:type, amount: '%.2f' % amount, balance: '%.2f' % balance})
+        new_transaction = Transaction.new(type,amount,balance)
+        @transactions.push(new_transaction)
     end
 
     private

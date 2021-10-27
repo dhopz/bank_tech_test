@@ -8,13 +8,14 @@ describe Statement do
   end
 
   #i tried and I still don't get stubbs
-  describe '#print_statement' do
+  describe '.print_statement' do
     it 'should show amount, date and balance' do
       bank = double(:bank)
       #transaction = double([:timestamp=>"26/10/2021 16-09-47", :type=>"Deposit", :amount=>"10.00", :balance=>"10.00"])
       transaction = double(:timestamp=>"26/10/2021 16-09-47", :type=>"Deposit", :amount=>"10.00", :balance=>"10.00")
-      allow(bank).to receive(:transactions).and_return([transaction])
-      p bank.transactions
+      transaction = double(timestamp:"26/10/2021 16-09-47", type:"Deposit", amount:"10.00", balance:"10.00")
+      allow(bank).to receive(:transactions).and_return(transaction)
+      #p bank.transactions
       expect(statement.print_statement(bank)).to eq("date || credit || debit || balance\n26/10/2021 16-09-47 || 10.00 || || 10.00")
     end
   end
@@ -27,3 +28,5 @@ describe Statement do
     end
   end
 end
+
+#allow(menu).to receive(:menu_items).and_return({Beer: 2.0})
